@@ -3,6 +3,7 @@ package com.unimater;
 import com.sun.net.httpserver.HttpServer;
 import com.unimater.controller.HelloWorldHandler;
 import com.unimater.dao.ProductTypeDAO;
+import com.unimater.model.ProductType;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -21,11 +22,18 @@ public class App {
                     new HelloWorldHandler());
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/myDb", "root", "root"
+                    "jdbc:mysql://localhost:3306/your_db", "root", "root"
             );
 
             ProductTypeDAO productTypeDAO = new ProductTypeDAO(connection);
 
+            productTypeDAO.getAll().forEach(System.out::println);
+            productTypeDAO.upsert(new ProductType(0, "Teste"));
+            productTypeDAO.getAll().forEach(System.out::println);
+            productTypeDAO.upsert(new ProductType(4, "Teste 2"));
+            productTypeDAO.getAll().forEach(System.out::println);
+            System.out.println(productTypeDAO.getById(1));
+            productTypeDAO.delete(5);
             productTypeDAO.getAll().forEach(System.out::println);
 
             servidor.setExecutor(null);

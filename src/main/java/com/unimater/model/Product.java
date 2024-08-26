@@ -1,7 +1,5 @@
 package com.unimater.model;
 
-import java.sql.ResultSet;
-
 public class Product {
 
     private int id;

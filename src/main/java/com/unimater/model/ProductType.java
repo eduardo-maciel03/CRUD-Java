@@ -1,5 +1,6 @@
 package com.unimater.model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -34,6 +35,12 @@ public class ProductType implements Entity {
     @Override
     public Entity constructFromResultSet(ResultSet rs) throws SQLException{
         return new ProductType(rs);
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, getDescription());
+        return preparedStatement;
     }
 
     @Override
